@@ -87,7 +87,7 @@
       }
     </script>
   </head>
-  <body>
+  <body style="background-image:url('/images/logo.png');background-repeat:no-repeat;">
     <div id='location'>
       <select id='dropdown' style='display:none;'>
         <option value='null'>Choose a location</option>
