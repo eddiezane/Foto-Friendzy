@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Game</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/megapix.js"></script>
+    <script src="/javascripts/canvas-toBlob.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      var socket = io.connect('/');
+
+      $(document).ready(function() {
+          socket.emit('join'); 
+
+          $('#image').on('change', function(e) {
+            var file = document.querySelector('input[type=file]').files[0];
+            drawImage(file);
+            // Terrible hack to wait for canvas to draw since images load asyc.
+            setTimeout(function() {
+              $('#canvas')[0].toBlob(function(blob) {
+                console.log(blob);
+                socket.emit('data', blob);
+              });
+            }, 300);
+          });
+
+          socket.on('image', function(data) {
+            drawImage(new Blob([data], {type:'image/png'}));
+          });
+      });
+
+      function drawImage(file) {
+        var img = new MegaPixImage(file);
+        var canvas = $('#canvas')[0];
+        img.render(canvas, {maxWidth: 600, maxHeight: 600, orientation: 6});
+      }
+    </script>
+  </head>
+  <body>
+    <form action=''>
+      <input type="file" name="image" id="image" accept="image/*;capture=camera">
+    </form>
+    <canvas id="canvas" height="400" width="400">
+    </canvas>
+  </body>
+</html>
