@@ -69,10 +69,12 @@
 
           $('[name=yes]').click(function() {
             socket.emit('judge', 'yes');
+            $('#judge').hide();
           });
 
           $('[name=no]').click(function() {
             socket.emit('judge', 'no');
+            $('#judge').hide();
           });
 
           socket.on('result', function(data) {
