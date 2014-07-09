@@ -9,9 +9,29 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
       var socket = io.connect('/');
+      var herp;
 
       $(document).ready(function() {
           socket.emit('join'); 
+
+          // Receive db from server. Listen for dropdown change
+          socket.on('reply', function(db) {
+            var dropdown = $('#dropdown');
+            for (var index in db.locations) {
+              var place = db.locations[index].name;
+              var opt = document.createElement('option');
+              opt.setAttribute('value', place);
+              opt.text = place;
+              dropdown.append(opt);
+            }
+            dropdown.show();
+            dropdown.change(function() {
+              var val = $('#dropdown').val();
+              if (val != 'null') {
+                socket.emit('location', val);
+              }
+            });
+          });
 
           $('#image').on('change', function(e) {
             var file = document.querySelector('input[type=file]').files[0];
@@ -38,7 +58,12 @@
     </script>
   </head>
   <body>
-    <form action=''>
+    <div id='location'>
+      <select id='dropdown' style='display:none;'>
+        <option value='null'>Choose a location</option>
+      </select>
+    </div>
+    <form id='form' action=''>
       <input type="file" name="image" id="image" accept="image/*;capture=camera">
     </form>
     <canvas id="canvas" height="400" width="400">

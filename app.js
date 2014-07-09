@@ -7,6 +7,8 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var db = require('./assets/data.json');
+
 // var session = require('express-session');
 // var passport = require('passport');
 // var LocalStrategy = require('passport-local').Strategy;
@@ -69,7 +71,11 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
 
   socket.on('join', function(data) {
-    console.log('Join');
+    socket.emit('reply', db);
+  });
+
+  socket.on('location', function(loc) {
+    console.log(loc);
   });
 
   socket.on('data', function(data) {
