@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
+var favicon = require('serve-favicon');
 var io = require('socket.io')(server);
 var path = require('path');
 var favicon = require('static-favicon');
@@ -20,7 +21,7 @@ var db = require('./assets/data.json');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
 
-app.use(favicon());
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());

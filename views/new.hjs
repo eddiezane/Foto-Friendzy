@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>New Game</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="/favicon.ico" />
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/megapix.js"></script>
     <script src="/javascripts/canvas-toBlob.js"></script>
@@ -88,10 +89,12 @@
     </script>
   </head>
   <body style="background-image:url('/images/logo.png');background-repeat:no-repeat;">
-    <div id='location'>
-      <select id='dropdown' style='display:none;'>
-        <option value='null'>Choose a location</option>
-      </select>
+    <div class="row">
+      <div id='location'>
+        <select id='dropdown' style='display:none;'>
+          <option value='null'>Choose a location</option>
+        </select>
+      </div>
     </div>
     <div id='game' style='display:none;'>
       <h1 id='item'></h1>
