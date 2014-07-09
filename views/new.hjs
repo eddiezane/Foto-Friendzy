@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>New Game</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="shortcut icon" href="/favicon.ico" />
+    <style>
+      body {
+        padding-top: 60px;
+      }
+      @media (max-width: 980px) {
+        body {
+          padding-top: 0;
+        }
+      }
+    </style>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/megapix.js"></script>
     <script src="/javascripts/canvas-toBlob.js"></script>
@@ -89,24 +100,32 @@
     </script>
   </head>
   <body style="background-image:url('/images/logo.png');background-repeat:no-repeat;">
-    <div class="row">
-      <div id='location'>
-        <select id='dropdown' style='display:none;'>
-          <option value='null'>Choose a location</option>
-        </select>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div id='location'>
+            <select id='dropdown' style='display:none;'>
+              <option value='null'>Choose a location</option>
+            </select>
+          </div>
+        </div>
       </div>
-    </div>
-    <div id='game' style='display:none;'>
-      <h1 id='item'></h1>
-      <form action=''>
-        <input type="file" name="image" id="image" accept="image/*;capture=camera">
-      </form>
-      <canvas id="canvas" height="400" width="400">
-      </canvas>
-      <div id='judge' style='display:none;'>
-        <h3>Is this correct?</h3>
-        <button name='yes'>Yes</button>
-        <button name='no'>No</button>
+      <div class="row">
+        <div class="col-md-12">
+          <div id='game' style='display:none;'>
+            <h1 id='item'></h1>
+            <form action=''>
+              <input type="file" name="image" id="image" accept="image/*;capture=camera">
+            </form>
+            <canvas id="canvas" height="400" width="400">
+            </canvas>
+            <div id='judge' style='display:none;'>
+              <h3>Is this correct?</h3>
+              <button name='yes'>Yes</button>
+              <button name='no'>No</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
