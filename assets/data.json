@@ -1,26 +1,7 @@
 {
-  "locations": [
-      {
-        "name": "city", 
-        "items": [ "taxi", "pigeon", "skyscraper", "bus stop", "hotdog stand", "tourist bus", "fountain", "advertisement flyer", "fast food restaurant", "don’t walk sign", "crosswalk", "street vendor", "city apartment", "bench", "tree", "construction worker"]  
-      }, 
-      {
-        "name": "beach",
-        "items": ["beach ball", "ice cream truck", "lifeguard", "life preserver", "pail & shovel", "sea shell with purple colouring", "seagull", "sunscreen spf 50", "boogie board or surf board", "goggles" , "baby wearing floaties", "sunburn", "umbrella",  "towel with the color green", "clump of seaweed",  "sand dune", "ice cream cone"]
-      }, 
-      {
-        "name": "office",
-        "items": ["paper weight", "rolling chairs", "dividers", "desk", "stapler", "paperclip", "glasses", "water", "# 2 pencils"]
-
-      },
-      {
-        "name": "house", 
-        "items": ["round pillow", "king or queen sized bed", "toilet paper", "refrigerator magnet", "TV remote", "thick book", "hat", "slippers", "a cooking pot"]
-
-      },
-      {
-        "name": "outside",
-        "items": ["bench", "baby tree", "bike", "bird", "shiny rock", "lamp post", "trash on the ground (please pick up afterwards)", "fence", "trash can",  "penny on the ground", "house number", "mailbox", "dog", "flag"]
-      }
-    ]
+  "city": ["taxi", "pigeon", "skyscraper", "bus stop", "hotdog stand", "tourist bus", "fountain", "advertisement flyer", "fast food restaurant", "don’t walk sign", "crosswalk", "street vendor", "city apartment", "bench", "tree", "construction worker"],
+  "beach": ["beach ball", "ice cream truck", "lifeguard", "life preserver", "pail & shovel", "sea shell with purple colouring", "seagull", "sunscreen spf 50", "boogie board or surf board", "goggles" , "baby wearing floaties", "sunburn", "umbrella",  "towel with the color green", "clump of seaweed",  "sand dune", "ice cream cone"],
+  "office": ["paper weight", "rolling chairs", "dividers", "desk", "stapler", "paperclip", "glasses", "water", "# 2 pencils"],
+  "house": ["round pillow", "king or queen sized bed", "toilet paper", "refrigerator magnet", "TV remote", "thick book", "hat", "slippers", "a cooking pot"],
+  "outside": ["bench", "baby tree", "bike", "bird", "shiny rock", "lamp post", "trash on the ground (please pick up afterwards)", "fence", "trash can",  "penny on the ground", "house number", "mailbox", "dog", "flag"]
 }

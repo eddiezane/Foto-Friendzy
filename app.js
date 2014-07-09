@@ -68,14 +68,41 @@ app.get('/', function(req, res) {
 // });
 
 // Socket Logic
+var sockQ = {};
+var sockDB = {};
 io.on('connection', function(socket) {
 
   socket.on('join', function(data) {
     socket.emit('reply', db);
   });
 
+  var BreakException= {};
   socket.on('location', function(loc) {
-    console.log(loc);
+    if (sockQ[loc]) {
+      try {
+        io.in('/').sockets.forEach(function(sock) {
+          if (sockQ[loc] == sock.id) {
+            var room = guid();
+            // TODO: Choose an item
+            sock.join(room);
+            socket.join(room);
+            sockQ[loc] = null;
+            sockDB[socket.id] = {location: loc, room: room};
+            sockDB[sock.id] = {location: loc, room: room};
+
+            // Get item
+            var item = db[loc][Math.floor(Math.random()*db[loc].length)];
+            io.in(room).emit('match', item);
+            // Hack to break on find
+            throw BreakException;
+          }
+        });
+      } catch(e) {
+        if (e!==BreakException) throw e;
+      }
+    } else {
+      sockQ[loc] = socket.id;
+    }
   });
 
   socket.on('data', function(data) {
@@ -116,5 +143,17 @@ app.use(function(err, req, res, next) {
 });
 
 server.listen(process.env.PORT || 3000);
+
+var guid = (function() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+  .toString(16)
+  .substring(1);
+  }
+  return function() {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+  s4() + '-' + s4() + s4() + s4();
+  };
+})();
 
 // module.exports = app;

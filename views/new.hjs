@@ -17,8 +17,7 @@
           // Receive db from server. Listen for dropdown change
           socket.on('reply', function(db) {
             var dropdown = $('#dropdown');
-            for (var index in db.locations) {
-              var place = db.locations[index].name;
+            for (var place in db) {
               var opt = document.createElement('option');
               opt.setAttribute('value', place);
               opt.text = place;
@@ -31,6 +30,13 @@
                 socket.emit('location', val);
               }
             });
+          });
+
+          // Found a match!
+          socket.on('match', function(item) {
+            $('#dropdown').hide();
+            $('#game').show();
+            $('#item').text(item);
           });
 
           $('#image').on('change', function(e) {
@@ -63,10 +69,13 @@
         <option value='null'>Choose a location</option>
       </select>
     </div>
-    <form id='form' action=''>
-      <input type="file" name="image" id="image" accept="image/*;capture=camera">
-    </form>
-    <canvas id="canvas" height="400" width="400">
-    </canvas>
+    <div id='game' style='display:none;'>
+      <h1 id='item'></h1>
+      <form action=''>
+        <input type="file" name="image" id="image" accept="image/*;capture=camera">
+      </form>
+      <canvas id="canvas" height="400" width="400">
+      </canvas>
+    </div>
   </body>
 </html>
