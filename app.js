@@ -109,6 +109,18 @@ io.on('connection', function(socket) {
     console.log("Got data");
     socket.broadcast.emit('image', data);
   });
+
+  socket.on('judge', function(data) {
+    if (data == 'yes') {
+      socket.broadcast.to(sockDB[socket.id].room).emit('result', 'yes');
+    } else {
+      socket.broadcast.to(sockDB[socket.id].room).emit('result', 'no');
+    }
+  });
+
+  socket.on('done', function() {
+    socket.broadcast.to(sockDB[socket.id].room).emit('done');
+  });
 });
 
 /// catch 404 and forward to error handler
