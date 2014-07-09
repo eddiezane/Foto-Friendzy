@@ -107,8 +107,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('data', function(data) {
-    console.log("Got data");
-    socket.broadcast.emit('image', data);
+    socket.broadcast.to(sockDB[socket.id].room).emit('image', data);
   });
 
   socket.on('judge', function(data) {
