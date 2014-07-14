@@ -72,19 +72,39 @@ app.get('/', function(req, res) {
 var sockQ = {};
 var sockDB = {};
 io.on('connection', function(socket) {
+  var BreakException= {};
+
+  socket.on('disconnect', function() {
+    try {
+      for (var loc in sockQ) {
+        if (sockQ[loc] == socket.id) {
+          delete sockQ[loc];
+          throw BreakException;
+        }
+      }
+    } catch(e) {
+      if (e!==BreakException) throw e;
+    }
+    delete sockDB[socket.id];
+  });
 
   socket.on('join', function(data) {
     socket.emit('reply', db);
   });
 
-  var BreakException= {};
   socket.on('location', function(loc) {
     if (sockQ[loc]) {
       try {
-        io.in('/').sockets.forEach(function(sock) {
+        // User changes queue
+        for (var key in sockQ) {
+          if (sockQ[key] == socket.id) {
+            delete sockQ[key];
+          }
+        }
+        for (var key in io.in('/').sockets) {
+          var sock = io.in('/').sockets[key];
           if (sockQ[loc] == sock.id) {
             var room = guid();
-            // TODO: Choose an item
             sock.join(room);
             socket.join(room);
             sockQ[loc] = null;
@@ -97,7 +117,7 @@ io.on('connection', function(socket) {
             // Hack to break on find
             throw BreakException;
           }
-        });
+        }
       } catch(e) {
         if (e!==BreakException) throw e;
       }
